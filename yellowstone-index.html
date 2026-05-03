@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yellowstone Trivia & Activities — National Park Adventure Series</title>
+  <meta name="description" content="Free Yellowstone Explorer Pack — bonus trivia, scavenger hunt, puzzles, and more for families visiting Yellowstone National Park.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --amber-deep: #b5651d;
+      --amber-rich: #cc7722;
+      --amber-warm: #d4922a;
+      --amber-light: #e8a83e;
+      --amber-glow: #f0c060;
+      --amber-pale: #fdf0d5;
+      --cream: #faf6ee;
+      --cream-dark: #f0e8d8;
+      --brown-dark: #3a2510;
+      --brown-mid: #5c3d1e;
+      --brown-text: #4a3420;
+      --white: #ffffff;
+      --shadow-soft: 0 4px 20px rgba(90, 55, 20, 0.12);
+      --shadow-card: 0 8px 32px rgba(90, 55, 20, 0.15);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+      background-color: var(--cream);
+      color: var(--brown-text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO ──────────────────────────────────── */
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 1.5rem 4rem;
+      overflow: hidden;
+      background: linear-gradient(
+        170deg,
+        #a85c15 0%,
+        #c47520 25%,
+        #d4922a 50%,
+        #cc7722 75%,
+        #a85c15 100%
+      );
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(240, 192, 96, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(180, 100, 30, 0.3) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Grain overlay for vintage poster feel */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+    }
+
+    .hero-landscape {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+    }
+
+    .hero-series-label {
+      display: inline-block;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber-pale);
+      border: 1.5px solid rgba(253, 240, 213, 0.4);
+      padding: 0.4em 1.2em;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeDown 0.8s ease 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 0.3em;
+      text-shadow: 0 3px 12px rgba(58, 37, 16, 0.3);
+      opacity: 0;
+      animation: fadeDown 0.8s ease 0.4s forwards;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--amber-pale);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeDown 0.8s ease 0.6s forwards;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeDown 0.8s ease 0.8s forwards;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--brown-dark);
+      background: var(--amber-glow);
+      padding: 0.9em 2.4em;
+      border-radius: 3px;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 16px rgba(58, 37, 16, 0.25);
+      opacity: 0;
+      animation: fadeDown 0.8s ease 1s forwards;
+    }
+
+    .hero-cta:hover {
+      background: var(--amber-pale);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(58, 37, 16, 0.3);
+    }
+
+    /* ── WHAT'S INSIDE ────────────────────────── */
+
+    .whats-inside {
+      padding: 5rem 1.5rem;
+      background: var(--cream);
+    }
+
+    .whats-inside-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber-rich);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--brown-dark);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+
+    .section-lead {
+      font-size: 1.1rem;
+      color: var(--brown-mid);
+      max-width: 600px;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: 6px;
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow-soft);
+      border-top: 3px solid var(--amber-warm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--brown-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--brown-mid);
+      line-height: 1.6;
+    }
+
+    /* ── SIGNUP SECTION ────────────────────────── */
+
+    .signup-section {
+      padding: 5rem 1.5rem;
+      background: linear-gradient(175deg, var(--cream-dark) 0%, var(--cream) 100%);
+    }
+
+    .signup-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 3rem 2.5rem;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      border-top: 4px solid var(--amber-warm);
+    }
+
+    .signup-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      color: var(--brown-dark);
+      margin-bottom: 0.8rem;
+      line-height: 1.2;
+    }
+
+    .signup-subtext {
+      font-size: 1.05rem;
+      color: var(--brown-mid);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    /* Kit form styling overrides */
+    .formkit-form {
+      width: 100% !important;
+    }
+
+    .formkit-form [data-style="clean"] {
+      width: 100% !important;
+    }
+
+    .signup-card input[type="email"],
+    .signup-card .formkit-input {
+      width: 100%;
+      padding: 0.85em 1.1em;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: 4px;
+      background: var(--cream);
+      color: var(--brown-dark);
+      margin-bottom: 1rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .signup-card input[type="email"]:focus,
+    .signup-card .formkit-input:focus {
+      outline: none;
+      border-color: var(--amber-warm);
+    }
+
+    .signup-card button[type="submit"],
+    .signup-card .formkit-submit {
+      width: 100%;
+      padding: 0.9em;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      background: var(--amber-rich);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background 0.25s ease, transform 0.15s ease;
+    }
+
+    .signup-card button[type="submit"]:hover,
+    .signup-card .formkit-submit:hover {
+      background: var(--amber-deep);
+      transform: translateY(-1px);
+    }
+
+    .signup-fine-print {
+      font-size: 0.8rem;
+      color: #9a8a7a;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    /* ── BOOK SECTION ─────────────────────────── */
+
+    .book-section {
+      padding: 5rem 1.5rem;
+      background: var(--cream);
+    }
+
+    .book-section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .book-cover-showcase {
+      aspect-ratio: 3/4;
+      background: linear-gradient(145deg, var(--amber-rich) 0%, var(--amber-deep) 100%);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 8px 8px 30px rgba(90, 55, 20, 0.25), -2px -2px 10px rgba(255, 255, 255, 0.1);
+    }
+
+    .book-cover-showcase::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .book-cover-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber-pale);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .book-cover-park-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 900;
+      font-size: 2rem;
+      color: var(--white);
+      text-align: center;
+      line-height: 1.1;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .book-details h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--brown-dark);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .book-details p {
+      font-size: 1.05rem;
+      color: var(--brown-mid);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .book-buy-link {
+      display: inline-block;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      background: var(--amber-rich);
+      padding: 0.75em 2em;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.15s ease;
+    }
+
+    .book-buy-link:hover {
+      background: var(--amber-deep);
+      transform: translateY(-1px);
+    }
+
+    .book-series-link {
+      display: inline-block;
+      margin-left: 1.5rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--amber-rich);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .book-series-link:hover {
+      border-bottom-color: var(--amber-rich);
+    }
+
+    /* ── FOOTER ────────────────────────────────── */
+
+    .footer {
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      background: var(--brown-dark);
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.85rem;
+    }
+
+    .footer a {
+      color: var(--amber-glow);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      margin: 0 1rem;
+    }
+
+    /* ── ANIMATIONS ────────────────────────────── */
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── RESPONSIVE ────────────────────────────── */
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: auto;
+        padding: 5rem 1.5rem 4rem;
+      }
+
+      .book-section-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .book-cover-showcase {
+        max-width: 240px;
+        margin: 0 auto;
+      }
+
+      .book-series-link {
+        display: block;
+        margin-left: 0;
+        margin-top: 1rem;
+      }
+
+      .signup-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="hero">
+    <svg class="hero-landscape" viewBox="0 0 1440 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <!-- Distant mountains -->
+      <path d="M0,260 L0,140 L120,80 L240,130 L360,60 L480,120 L600,50 L720,100 L840,40 L960,110 L1080,55 L1200,95 L1320,65 L1440,100 L1440,260 Z" fill="rgba(0,0,0,0.12)"/>
+      <!-- Mid mountains -->
+      <path d="M0,260 L0,170 L180,120 L300,160 L420,100 L540,155 L720,90 L900,145 L1050,105 L1200,150 L1350,115 L1440,140 L1440,260 Z" fill="rgba(0,0,0,0.18)"/>
+      <!-- Foreground -->
+      <path d="M0,260 L0,200 L200,180 L400,195 L600,175 L800,200 L1000,180 L1200,195 L1440,185 L1440,260 Z" fill="rgba(0,0,0,0.25)"/>
+      <!-- Geyser steam hints -->
+      <ellipse cx="720" cy="175" rx="20" ry="35" fill="rgba(255,255,255,0.06)"/>
+      <ellipse cx="725" cy="155" rx="12" ry="25" fill="rgba(255,255,255,0.04)"/>
+    </svg>
+
+    <div class="hero-content">
+      <span class="hero-series-label">National Park Adventure Series</span>
+      <h1 class="hero-title">Yellowstone</h1>
+      <p class="hero-subtitle">Trivia & Activities for the Whole Family</p>
+      <p class="hero-description">
+        Geysers, bison, hot springs, and the world's first national park — 
+        explore it all through puzzles, games, and adventures your whole family will love.
+      </p>
+      <a href="#signup" class="hero-cta">Get Your Free Explorer Pack</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════ WHAT'S INSIDE ═══════════════ -->
+  <section class="whats-inside">
+    <div class="whats-inside-inner">
+      <p class="section-eyebrow">Free Explorer Pack</p>
+      <h2 class="section-heading">What's Inside</h2>
+      <p class="section-lead">
+        A printable bonus pack designed to make your Yellowstone trip even more memorable — 
+        whether you're on the road, at the campsite, or planning from home.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🦬</span>
+          <h3 class="feature-title">Bonus Trivia Questions</h3>
+          <p class="feature-desc">Five extra Yellowstone questions that didn't make the book — from geyser science to wildlife facts.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">🔍</span>
+          <h3 class="feature-title">Scavenger Hunt Checklist</h3>
+          <p class="feature-desc">A printable list of things to spot, hear, and smell throughout the park. Can your family find them all?</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">🧩</span>
+          <h3 class="feature-title">Bonus Puzzle Page</h3>
+          <p class="feature-desc">An extra puzzle page featuring Yellowstone's landmarks, wildlife, and geothermal wonders.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">🌋</span>
+          <h3 class="feature-title">"Did You Know?" Facts</h3>
+          <p class="feature-desc">Surprising facts about Yellowstone that will make you the most interesting person at the campfire.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">🏅</span>
+          <h3 class="feature-title">Explorer Certificate</h3>
+          <p class="feature-desc">A printable certificate your junior explorer can earn by completing the activities. Frame-worthy.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">📖</span>
+          <h3 class="feature-title">100% Free</h3>
+          <p class="feature-desc">No strings attached. Just sign up below and the Explorer Pack lands in your inbox instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SIGNUP ═══════════════ -->
+  <section class="signup-section" id="signup">
+    <div class="signup-card">
+      <h2 class="signup-heading">Get Your Free<br>Yellowstone Explorer Pack</h2>
+      <p class="signup-subtext">
+        Enter your email and we'll send the printable Explorer Pack straight to your inbox — 
+        plus occasional updates when new park books drop.
+      </p>
+
+      <!--
+        ╔═══════════════════════════════════════════════════════╗
+        ║  KIT (CONVERTKIT) FORM EMBED — YELLOWSTONE           ║
+        ║                                                       ║
+        ║  Replace the placeholder below with your Kit form     ║
+        ║  embed code. To set this up:                          ║
+        ║                                                       ║
+        ║  1. In Kit, create a new form (or duplicate your      ║
+        ║     existing Smokies form)                            ║
+        ║  2. Add a tag rule: auto-tag signups as "Yellowstone" ║
+        ║  3. Copy the embed script and paste it here           ║
+        ║  4. Delete the fallback form below                    ║
+        ╚═══════════════════════════════════════════════════════╝
+      -->
+
+      <!-- ▼ FALLBACK FORM — remove once Kit embed is added ▼ -->
+      <form action="#" method="POST" style="margin: 0 auto; max-width: 400px;">
+        <input type="email" placeholder="Your email address" required
+               style="width:100%;padding:0.85em 1.1em;font-family:'Source Sans 3',sans-serif;font-size:1rem;border:1.5px solid #e0d8cc;border-radius:4px;background:#faf6ee;color:#3a2510;margin-bottom:1rem;">
+        <button type="submit"
+                style="width:100%;padding:0.9em;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:1.05rem;background:#cc7722;color:#fff;border:none;border-radius:4px;cursor:pointer;letter-spacing:0.02em;">
+          Send Me the Explorer Pack
+        </button>
+      </form>
+      <!-- ▲ END FALLBACK FORM ▲ -->
+
+      <p class="signup-fine-print">
+        We respect your inbox. Unsubscribe anytime. No spam, ever.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ BOOK SECTION ═══════════════ -->
+  <section class="book-section">
+    <div class="book-section-inner">
+      <div class="book-cover-showcase">
+        <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:0;width:100%;opacity:0.2;">
+          <path d="M0,120 L0,70 L40,45 L80,75 L120,35 L160,65 L200,50 L200,120 Z" fill="rgba(0,0,0,0.3)"/>
+          <path d="M0,120 L0,90 L60,70 L120,85 L180,75 L200,85 L200,120 Z" fill="rgba(0,0,0,0.4)"/>
+        </svg>
+        <span class="book-cover-label">National Park Adventure Series</span>
+        <div class="book-cover-park-name">Yellowstone</div>
+      </div>
+      <div class="book-details">
+        <h2>Yellowstone Trivia & Activities</h2>
+        <p>
+          Packed with trivia, puzzles, word searches, and family-friendly activities 
+          all about the world's first national park. Perfect for the drive out, 
+          rainy afternoons in the cabin, or evenings around the campfire.
+        </p>
+        <p>
+          Part of the National Park Adventure Series — five books covering 
+          America's most iconic parks.
+        </p>
+        <!-- Update href when Amazon listing is live -->
+        <a href="#" class="book-buy-link">Coming Soon</a>
+        <a href="https://parkadventureseries.com" class="book-series-link">See All Books →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="https://parkadventureseries.com">Home</a>
+      <a href="https://parkadventureseries.com#books">All Books</a>
+      <a href="https://www.amazon.com/stores/Jeremy-Milford/author/B0H1VKNMKP" target="_blank">Amazon</a>
+    </div>
+    <p>&copy; 2026 Signal Press. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
